@@ -1,0 +1,4 @@
+venv/
+.idea/
+Scraping_singers_lyrics/
+logs.log
