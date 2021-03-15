@@ -1,0 +1,4 @@
+spacy
+Counter
+bs4
+requests

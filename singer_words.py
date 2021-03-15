@@ -1,7 +1,7 @@
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #          A module to get counters of, must used words #
 #          or nouns used by an Artist                   #
-#          By:                                          #
+#          By: LAHRIZI Ahmed                            #
 #      Works with web scrapping from genius lyrics      #
 #   Open-Source, but please use my name when using it   #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -16,7 +16,7 @@ import logging
 
 from bs4 import BeautifulSoup
 import spacy
-from collections import Counter
+from Counter import Counter
 
 # The code basically works in this shcheme : the only public method is get_most_used_words
 # So when we call it it
@@ -41,7 +41,6 @@ class Artist:
         self.spacy_module = spacy_module
         self.fetched_urls = Counter()
         # fetched_urls: A counter with every url and how much times we fetched lyrics on it (for debug)
-        self.most_used_words = {}
 
     def __request_json(self, page_number: int = 1) -> dict:
         """
@@ -124,7 +123,7 @@ class Artist:
         Returns: A string with the lyrics in lowercase
         """
         fetched_lyrics_urls = []
-        for url in self.__get_artist_songs_urls():
+        for url in self.__get_artist_songs_urls()[:5]:
             request = self.__request_page_content(url)
             soup = BeautifulSoup(request[0].content, "html.parser")
             lyrics = soup.find("div", class_="lyrics")
@@ -142,25 +141,32 @@ class Artist:
                   format(number_of_fetches=request[1], s="s" if request[1] > 1 else "", url=url))
         return " ".join(fetched_lyrics_urls).lower()
 
-    def get_most_used_words(self):
-        nlp = spacy.load(self.spacy_module)
-        # Loading the language
-        print("loaded spacy")
-        doc = nlp(self.__extract_lyrics_from_url())
-        # Tokenizing the lyrics
-        print("loaded text in spacy")
-        for token in doc:
-            # .pos_ is there type like verb, noun...
-            if token.pos_ not in self.most_used_words:
-                self.most_used_words[token.pos_] = []
-                # if there is no key for this pos_ we create one with a value of an empty list
-            self.most_used_words[token.pos_].append(token.text)
-            # Then we append to our list the text
-        self.most_used_words = {key: Counter(value) for key, value in self.most_used_words.items()}
-        # And when we are done we will replace lists with counters
-        return self.most_used_words
+    @property
+    def most_used_words(self):
+        try:
+            most_used_words = {}
+            nlp = spacy.load(self.spacy_module)
+            # Loading the language
+            print("loaded spacy")
+            doc = nlp(self.__extract_lyrics_from_url())
+            # Tokenizing the lyrics
+            print("loaded text in spacy")
+            for token in doc:
+                # .pos_ is there type like verb, noun...
+                if token.pos_ not in most_used_words:
+                    most_used_words[token.pos_] = []
+                    # if there is no key for this pos_ we create one with a value of an empty list
+                most_used_words[token.pos_].append(token.text)
+                # Then we append to our list the text
+            # And when we are done we will replace lists with counters
+            return {key: Counter(value) for key, value in most_used_words.items()}
+        except:
+            return {}
+
+    @classmethod
+    def patrick_bruel(cls, spacy_module="fr_core_news_sm"):
+        return 29743, "Patrick Bruel", spacy_module
 
 
 ICO = Artist(29743, artist_name="Patrick Bruel", spacy_module="fr_core_news_sm")
-ico_lyrics = ICO.get_most_used_words()
-pprint(ico_lyrics)
+pprint(ICO.most_used_words)
