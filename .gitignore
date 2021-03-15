@@ -2,4 +2,3 @@ venv/
 .idea/
 Scraping_singers_lyrics/
 .pypirc
-setup.py
