@@ -14,15 +14,17 @@ setup(
     name="scrap_singers",
     version=VERSION,
     author="Lahrizi Ahmed",
-    author_email="",
+    author_email="fishy.anonyme@gmail.com",
     description=DESCRIPTION,
     long_description_content_type="text/markdown",
     long_description=long_description,
     packages=find_packages(),
-    install_requires=['spacy', 'Counter', 'bs4', 'requests'],
+    install_requires=['spacy', 'bs4', 'requests'],
     keywords=['python', 'singers', 'scrapping', 'web', 'lyrics', 'spacy', 'elon musk'],
     project_urls={
+        'Documentation': "https://github.com/ahmedlahrizi/Scraping_singers_lyrics",
         "Bug Tracker": "https://github.com/ahmedlahrizi/Scraping_singers_lyrics",
+        'Source': "https://github.com/ahmedlahrizi/Scraping_singers_lyrics"
     },
     classifiers=[
         "Development Status :: 1 - Planning",
@@ -32,6 +34,6 @@ setup(
         "Operating System :: MacOS :: MacOS X",
         "Operating System :: Microsoft :: Windows",
     ],
-    python_requires=">=3.9",
-    package_dir={"": "scrap_singers"}
+    package_dir={"": "scrap_singers"},
+    python_requires=">=3.6"
 )
