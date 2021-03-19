@@ -45,7 +45,7 @@ class Artist:
             self.artist_name = artist_name
             self.spacy_module = spacy_module
             self.fetched_urls = Counter()
-            self.lyrics_nlp = self.__most_used_words_nlp()
+            self.lyrics_nlp = self.__most_used_words_nlp
         except:
             pass
         # fetched_urls: A counter with every url and how much times we fetched lyrics on it (for debug)
@@ -68,8 +68,7 @@ class Artist:
                 request_json = request.json()
                 safety_exit -= 1
             # pprint(request_json)
-            # print("Succesfully searched json dict with a request for {artist_name}, page {page_number}".
-            #                  format(artist_name=self.artist_name, page_number=page_number))
+            print(f"Succesfully searched json dict with a request for {self.artist_name}, page {str(page_number)}")
             return request_json
         except:
             return {}
@@ -176,7 +175,7 @@ class Artist:
         try:
             return token.lemma_.strip(" ,.()").lower()
         except:
-            return False
+            return "False"
 
     @staticmethod
     def __is_valid_token(token):
@@ -192,14 +191,14 @@ class Artist:
     def extract_lyrics(self, mode="l"):
         try:
             if mode == "l":
-                return Counter([token for token in self.lyrics_nlp if __is_valid_token(token)])
+                return Counter([token for token in self.__most_used_words_nlp if Artist.__is_valid_token(token)])
             elif mode in ["c", "d"]:
                 most_used_words = {}
                 for token in self.lyrics_nlp:
                     if __is_valid_token(token):
                         if token in most_used_words:
                             most_used_words[token.pos_ if mode == "c" else token.tag] = Counter()
-                        most_used_words[token.pos_ if mode == "c" else token.tag] += (__str_from_token(token))
+                        most_used_words[token.pos_ if mode == "c" else token.tag] += (Artist.__str_from_token(token))
                 return most_used_words
             elif mode == "cd":
                 pass
@@ -212,6 +211,6 @@ class Artist:
         return 29743, "Patrick Bruel", spacy_module
 
 
-ICO = Artist(Artist.patrick_bruel("fr_core_news_sm"))
+ICO = Artist(1128641, "Patrick Bruel", "fr_core_news_sm")
 a = ICO.extract_lyrics("l")
 pprint(a)
