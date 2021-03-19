@@ -1,0 +1,7 @@
+README.md
+setup.py
+scrap_singers/scrap_singers.egg-info/PKG-INFO
+scrap_singers/scrap_singers.egg-info/SOURCES.txt
+scrap_singers/scrap_singers.egg-info/dependency_links.txt
+scrap_singers/scrap_singers.egg-info/requires.txt
+scrap_singers/scrap_singers.egg-info/top_level.txt

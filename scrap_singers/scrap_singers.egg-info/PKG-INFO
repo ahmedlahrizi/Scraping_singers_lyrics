@@ -1,0 +1,24 @@
+Metadata-Version: 2.1
+Name: scrap-singers
+Version: 0.0.1
+Summary: A basic script to get most used words by a singer using spacy and requests and Counter
+Home-page: UNKNOWN
+Author: Lahrizi Ahmed
+Author-email: 
+License: UNKNOWN
+Project-URL: Bug Tracker, https://github.com/ahmedlahrizi/Scraping_singers_lyrics
+Description: # Scraping_singers_lyrics
+        ***
+        Scraping singers lyrics using spacy and genius ID
+        
+        # I still need to write the doc 😭
+Keywords: python,singers,scrapping,web,lyrics,spacy,elon musk
+Platform: UNKNOWN
+Classifier: Development Status :: 1 - Planning
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: Unix
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
